@@ -103,6 +103,7 @@ export default function StaticSection(props) {
                 </List>
             </Drawer>
             <main className={classes.content}>
+                <div className={classes.toolbar} />
                 {props.children}
             </main>
         </div>

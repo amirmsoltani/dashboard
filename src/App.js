@@ -8,11 +8,11 @@ import Posts from './views/Posts';
 export default function App() {
   return (
       <StaticSection>
-                <Route path="/" component={()=><Redirect to="/Dashboard" />}/>
-                <Route path="/Dashboard" component={Dashboard} exact={true}/>
+                <Route exact={true} path="/" component={()=><Redirect to="/Dashboard" />}/>
+                <Route path="/Dashboard" component={Dashboard} />
                 <Route path="/Posts" component={Posts} />
                 <Route path="/Comments" component={Comments} />
-                <Route path="/AddPost" component={AddPost} />
+                <Route path="/AddPost/" component={AddPost} />
 
 
       </StaticSection>
