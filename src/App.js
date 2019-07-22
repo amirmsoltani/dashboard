@@ -1,26 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import {Route,Redirect} from 'react-router-dom';
+import StaticSection from "./components/StaticSection";
+import Dashboard from './views/Dashboard';
+import AddPost from './views/AddPost';
+import Comments from './views/Comments';
+import Posts from './views/Posts';
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+      <StaticSection>
+                <Route path="/" component={()=><Redirect to="/Dashboard" />}/>
+                <Route path="/Dashboard" component={Dashboard} exact={true}/>
+                <Route path="/Posts" component={Posts} />
+                <Route path="/Comments" component={Comments} />
+                <Route path="/AddPost" component={AddPost} />
+
+
+      </StaticSection>
+      );
 }
 
-export default App;
+
