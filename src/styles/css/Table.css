@@ -1,0 +1,34 @@
+a
+{
+    outline: 0;
+    color: #111111;
+    line-height: inherit;
+}
+.icon_body :hover
+{
+
+    /*background-color:rgba(255,255,255,1);*/
+    color: #fc0000;
+    border: none;
+    /*height: 44px;*/
+    /*line-height: inherit;*/
+}
+.icon_body :focus
+{
+
+    box-shadow: none;
+    outline: none !important;
+
+}
+.active
+{
+    color: green;
+}
+.draft
+{
+    color: yellow;
+}
+.block
+{
+    color: #fc0000;
+}

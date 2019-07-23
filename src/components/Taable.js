@@ -1,91 +1,94 @@
 import React from 'react';
-import MaterialTable from 'material-table';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import {Icon} from '@material-ui/core';
-import {useStyles} from '../styles/js/Tables';
-import { useTheme } from '@material-ui/core/styles';
-import clsx from 'clsx';
+import clx from 'clsx';
+import '../styles/css/Table.css';
 
+const StyledTableCell = withStyles(theme => ({
+    head: {
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
+    },
+    body: {
+        fontSize: 14,
+    },
+}))(TableCell);
 
+const StyledTableRow = withStyles(theme => ({
+    root: {
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.background.default,
+        },
+    },
+}))(TableRow);
 
+function createData(title,edit,delet,tick, type, expires, status) {
+    return { title,edit,delet,tick, type, expires, status };
+}
 
-export default function MaterialTableDemo() {
+const rows = [
+    createData('Frozen yoghurt',<a href="#"> <i className="material-icons">edit</i></a>,<a href="#"> <i className="material-icons">delete</i></a>,<a > <i className="material-icons">done</i></a>,159, 6.0, 'Active'),
+    createData('Frozen yoghurt',<a href="#"> <i className="material-icons">edit</i></a>,<a href="#"> <i className="material-icons">delete</i></a>,<a > <i className="material-icons">done</i></a>,159, 6.0, 'Publish'),
+    createData('Frozen yoghurt',<a href="#"> <i className="material-icons">edit</i></a>,<a href="#"> <i className="material-icons">delete</i></a>,<a > <i className="material-icons">done</i></a>,159, 6.0, 'Draft'),
+    createData('Frozen yoghurt',<a href="#"> <i className="material-icons">edit</i></a>,<a href="#"> <i className="material-icons">delete</i></a>,<a > <i className="material-icons">done</i></a>,159, 6.0, 'Block'),
+
+];
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        width: '100%',
+        marginTop: theme.spacing(3),
+        overflowX: 'auto',
+    },
+    table: {
+        minWidth: 700,
+    },
+}));
+
+export default function CustomizedTables() {
     const classes = useStyles();
-    const theme = useTheme();
-    const [state, setState] = React.useState({
-        columns: [
-            //{ title: 'IfPublish', field: 'ifpublish' },
-            { title: 'Title', field: 'title' },
-            { title: 'Type', field: 'type' },
-            { title: 'Expires', field: 'expires', type: 'numeric' },
-            {
-                title: 'Status',
-                field: 'status',
-                lookup: { 1: 'Active', 2: 'Draft',3:'Publish' },
-            },
-        ],
-        data: [
-            {
-                // ifpublish:<Icon className={clsx({[classes.publish]:1===1,[classes.draft]:2!==2})}>done</Icon>,
-                title: 'Spider Man',
-                type: 'Baran',
-                expires: 1987,
-                status: 1
-            },
-            {
-               //ifpublish:<Icon>done</Icon>,
-                title: 'Zerya Betül',
-                type: 'Baran',
-                expires: 2017,
-                status: 2,
-            },
-            {
-                //ifpublish:<Icon>done</Icon>,
-                title: 'Zerya Betül',
-                type: 'Baran',
-                expires: 2017,
-                status: 3,
-            },
-        ],
-    });
 
     return (
-        <MaterialTable
-
-            title="Tables"
-            columns={state.columns}
-            data={state.data}
-            editable={{
-                onRowAdd: newData =>
-                    new Promise(resolve => {
-                        setTimeout(() => {
-                            resolve();
-                            const data = [...state.data];
-                            data.push(newData);
-                            setState({ ...state, data });
-                        }, 600);
-                    }),
-                onRowUpdate: (newData, oldData) =>
-                    new Promise(resolve => {
-                        setTimeout(() => {
-                            resolve();
-                            const data = [...state.data];
-                            data[data.indexOf(oldData)] = newData;
-                            setState({ ...state, data });
-                        }, 600);
-                    }),
-                onRowDelete: oldData =>
-                    new Promise(resolve => {
-                        setTimeout(() => {
-                            resolve();
-                            const data = [...state.data];
-                            data.splice(data.indexOf(oldData), 1);
-                            setState({ ...state, data });
-                        }, 600);
-                    }),
-
-            }}
-
-        />
-
+        <Paper className={classes.root}>
+            <Table className={classes.table}>
+                <TableHead>
+                    <TableRow>
+                        <StyledTableCell>Title</StyledTableCell>
+                        <StyledTableCell></StyledTableCell>
+                        <StyledTableCell></StyledTableCell>
+                        <StyledTableCell>Action</StyledTableCell>
+                        <StyledTableCell align="right">Type</StyledTableCell>
+                        <StyledTableCell align="right">Expires</StyledTableCell>
+                        <StyledTableCell align="right">Status</StyledTableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {rows.map(row => (
+                        <StyledTableRow key={row.name}>
+                            {/*<StyledTableCell component="th" scope="row">*/}
+                                {/*{row.name}*/}
+                            {/*</StyledTableCell>*/}
+                            <StyledTableCell >{row.title}</StyledTableCell>
+                            <StyledTableCell className="icon_body"  align="right" >{row.edit}</StyledTableCell>
+                            <StyledTableCell className="icon_body"  align="left" >{row.delet}</StyledTableCell>
+                            <StyledTableCell  ><Icon className={clx({
+                                "active":row.status==="Publish",
+                                "draft":row.status==="Draft",
+                                "block":row.status==="Block",
+                            })}>done</Icon></StyledTableCell>
+                            <StyledTableCell align="right">{row.type}</StyledTableCell>
+                            <StyledTableCell align="right">{row.expires}</StyledTableCell>
+                            <StyledTableCell align="right">{row.status}</StyledTableCell>
+                        </StyledTableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </Paper>
     );
 }
