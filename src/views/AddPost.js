@@ -1,29 +1,42 @@
 import React,{Component} from 'react';
-import {Grid,Container} from '@material-ui/core';
-import { EditorState } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import {Grid,Chip} from '@material-ui/core';
+import CKEditor from 'ckeditor4-react';
+import {useTheme} from "@material-ui/core/styles";
+import {AddPostStyle} from '../styles/js/AddPostStyle';
+import '../styles/css/AddPost.css';
+import SettingList from '../components/SettingsList';
+
 export  default class AddPost extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            content: EditorState.createEmpty(),
-        };
 
-    }
-
+    state={tags:[[1,'salam'],[2,'khobi'],[3,'ok shod']]};
+    content = React.createRef();
+    data={content:""};
     render() {
-        const {} = this.state;
-        return (
-            <Grid container>
-                <Grid item md={8}>
-                    <Editor
 
+        let {tags} = this.state;
+        return (
+            <Grid container spacing={2}>
+                <Grid item md={8} >
+                    <CKEditor
+                        type="classic"
+                        ref={this.content}
                     />
+                    <div className="tags">
+                        {tags.map((tag,index)=>
+                            <Chip onDelete={()=>{tags.splice(index, 1);this.setState(tags)}}
+                                  label={tag[1]}
+                                  style={{margin: 5}}
+                                  key={index}
+                            />
+                        )}
+
+                    </div>
                 </Grid>
-                <Grid item md={4}>
+                <Grid item md={4} >
+                    <SettingList />
                 </Grid>
             </Grid>
         )
     }
 }
+

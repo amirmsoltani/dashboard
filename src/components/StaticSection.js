@@ -20,13 +20,13 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import {useStyles} from '../styles/js/StaticSectionStyle';
+import {StaticSectionStyle} from '../styles/js/StaticSectionStyle';
 
 
 
 const icon = {'Dashboard':'dashboard','Comments':'comment','Posts':'archive','Add post':'add'};
 export default function StaticSection(props) {
-    const classes = useStyles();
+    const classes = StaticSectionStyle();
     const theme = useTheme();
     const [open, setOpen] = React.useState(true);
 
