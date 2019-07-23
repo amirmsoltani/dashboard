@@ -3,7 +3,7 @@ import { makeStyles, Theme, createStyles,withStyles } from '@material-ui/core/st
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import {Select,InputLabel,MenuItem,InputBase,FormControl,CardMedia,Fab,Icon} from '@material-ui/core';
+import {Select, InputLabel, MenuItem, FormControl, CardMedia, Fab, Icon, InputBase} from '@material-ui/core';
 import clsx from 'clsx';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -41,7 +41,8 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }),
 );
-const BootstrapInput = withStyles((theme: Theme) =>
+
+export const BootstrapInput = withStyles((theme: Theme) =>
     createStyles({
         root: {
             'label + &': {

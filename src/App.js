@@ -13,7 +13,6 @@ export default function App() {
                 <Route path="/Posts" component={Posts} />
                 <Route path="/Comments" component={Comments} />
                 <Route path="/AddPost" component={AddPost} />
-                <Route path="/AddPost/" component={AddPost} />
 
 
       </StaticSection>

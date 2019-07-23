@@ -1,39 +1,60 @@
 import React,{Component} from 'react';
-import {Grid,Chip} from '@material-ui/core';
+import {Grid,TextField,List,ListItem} from '@material-ui/core';
 import CKEditor from 'ckeditor4-react';
-import {useTheme} from "@material-ui/core/styles";
-import {AddPostStyle} from '../styles/js/AddPostStyle';
+import {ListColumn} from "../components/LictColumn";
 import '../styles/css/AddPost.css';
 import SettingList from '../components/SettingsList';
+import {MultiSelect,SingleSelect} from '../components/Selector';
 
 export  default class AddPost extends Component{
 
-    state={tags:[[1,'salam'],[2,'khobi'],[3,'ok shod']]};
+    details = {};
     content = React.createRef();
-    data={content:""};
     render() {
 
-        let {tags} = this.state;
+
+        const content = React.createRef();
         return (
             <Grid container spacing={2}>
                 <Grid item md={8} >
+                    <div className="list-item">
+                        <TextField
+                            className="title"
+                            label="title"
+                            id="title"
+                            placeholder="Enter title post"/>
+                    </div>
                     <CKEditor
                         type="classic"
                         ref={this.content}
                     />
-                    <div className="tags">
-                        {tags.map((tag,index)=>
-                            <Chip onDelete={()=>{tags.splice(index, 1);this.setState(tags)}}
-                                  label={tag[1]}
-                                  style={{margin: 5}}
-                                  key={index}
-                            />
-                        )}
-
+                    <div className="list-item">
+                    <MultiSelect name="tags" backData={this.details}/>
+                    </div>
+                    <div className="list-item">
+                    <MultiSelect name="star" backData={this.details}/>
+                    </div>
+                    <div className="list-item">
+                    <MultiSelect name="gener" backData={this.details}/>
+                    </div>
+                    <div className="list-item">
+                    <ListColumn column={{name:"DownloadLink",column:["Link","Quality"]}}/>
                     </div>
                 </Grid>
                 <Grid item md={4} >
                     <SettingList />
+                    <div className="list-item">
+                    <SingleSelect name="actor" backData={this.details}/>
+                    </div>
+                    <div className="list-item">
+                            <TextField
+                                       className="year"
+                                       label="publish"
+                                       id="publish"
+                                       placeholder="Enter publish year"/>
+                    </div>
+
+
                 </Grid>
             </Grid>
         )

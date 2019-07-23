@@ -3,3 +3,39 @@ tags{
     justify-content: center;
     flex-wrap: wrap;
 }
+.root{
+    flexGrow: 1;
+    height: 250px;
+}
+.divider
+{
+    height: 2px;
+}
+.td{
+    overflow-x: scroll;
+    margin-left: 10px;
+    padding-top: 7px;
+    padding-bottom: 3px;
+    border-bottom: 2px solid rgba(80,80,200,.8);
+
+
+}
+.td::-webkit-scrollbar{
+    display: none;
+}
+.year
+{
+    margin-top: 7px;
+}
+.list-item{
+    margin-top: 7px;
+    margin-bottom: 7px;
+    padding: 7px;
+    border: 1px solid rgba(80,80,80,0.4);
+    background-color: white;
+    border-radius: 3px;
+}
+.title{
+    width: 100%;
+}
+
