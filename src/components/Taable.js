@@ -9,6 +9,14 @@ import Paper from '@material-ui/core/Paper';
 import {Icon} from '@material-ui/core';
 import clx from 'clsx';
 import '../styles/css/Table.css';
+import moment from 'moment-jalaali';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
+
 
 const StyledTableCell = withStyles(theme => ({
     head: {
@@ -28,17 +36,6 @@ const StyledTableRow = withStyles(theme => ({
     },
 }))(TableRow);
 
-function createData(title,edit,delet,tick, type, expires, status) {
-    return { title,edit,delet,tick, type, expires, status };
-}
-
-const rows = [
-    createData('Frozen yoghurt',<a href="#"> <i className="material-icons">edit</i></a>,<a href="#"> <i className="material-icons">delete</i></a>,<a > <i className="material-icons">done</i></a>,159, 6.0, 'Active'),
-    createData('Frozen yoghurt',<a href="#"> <i className="material-icons">edit</i></a>,<a href="#"> <i className="material-icons">delete</i></a>,<a > <i className="material-icons">done</i></a>,159, 6.0, 'Publish'),
-    createData('Frozen yoghurt',<a href="#"> <i className="material-icons">edit</i></a>,<a href="#"> <i className="material-icons">delete</i></a>,<a > <i className="material-icons">done</i></a>,159, 6.0, 'Draft'),
-    createData('Frozen yoghurt',<a href="#"> <i className="material-icons">edit</i></a>,<a href="#"> <i className="material-icons">delete</i></a>,<a > <i className="material-icons">done</i></a>,159, 6.0, 'Block'),
-
-];
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -50,21 +47,51 @@ const useStyles = makeStyles(theme => ({
         minWidth: 700,
     },
 }));
+function getTime (data)
+{
+    let today = new Date();
+    let before = new Date(data);
+    let totime = today.getTime(),betime = before.getTime();
+    if(totime > betime+86400000)
+        return moment(before.getFullYear()+"/"+before.getMonth()+"/"+before.getDate(),"YYYY/MM/DD")
+            .format("jYYYY/jMM/jDD");
+    if(totime > betime+3600000)
+        return before.getHours()+" hour";
+    if(totime > betime+60000)
+        return before.getMinutes()+ " min";
+    return before.getSeconds() +" sec"
 
-export default function CustomizedTables() {
+
+}
+
+export default function CustomizedTables(props) {
+
+
+  const {rows} = props;
+
+
     const classes = useStyles();
 
     return (
         <Paper className={classes.root}>
             <Table className={classes.table}>
                 <TableHead>
+                            <div className="head_div">
+                            <div className="search">
+                                <a className="table_btn_search" > <i className="material-icons">search</i></a>
+                                <input className="table_input_search" placeholder="Search"/>
+                                <a className="table_btn_close"> <i className="material-icons">close</i></a>
+                            </div>
+                            <button className="table_btn_add"> <i className="material-icons">add</i></button>
+                            </div>
+
                     <TableRow>
                         <StyledTableCell>Title</StyledTableCell>
                         <StyledTableCell></StyledTableCell>
                         <StyledTableCell></StyledTableCell>
                         <StyledTableCell>Action</StyledTableCell>
                         <StyledTableCell align="right">Type</StyledTableCell>
-                        <StyledTableCell align="right">Expires</StyledTableCell>
+                        <StyledTableCell align="right">Modified</StyledTableCell>
                         <StyledTableCell align="right">Status</StyledTableCell>
                     </TableRow>
                 </TableHead>
@@ -75,20 +102,59 @@ export default function CustomizedTables() {
                                 {/*{row.name}*/}
                             {/*</StyledTableCell>*/}
                             <StyledTableCell >{row.title}</StyledTableCell>
-                            <StyledTableCell className="icon_body"  align="right" >{row.edit}</StyledTableCell>
-                            <StyledTableCell className="icon_body"  align="left" >{row.delet}</StyledTableCell>
+                            <StyledTableCell className="icon_body"  align="right" ><a href="#"> <i className="material-icons">edit</i></a></StyledTableCell>
+                            <AlertDialog/>
                             <StyledTableCell  ><Icon className={clx({
-                                "active":row.status==="Publish",
-                                "draft":row.status==="Draft",
-                                "block":row.status==="Block",
+                                "active":row.status===1,
+                                "archived":row.status===3,
+                                "faild":row.status===4,
                             })}>done</Icon></StyledTableCell>
                             <StyledTableCell align="right">{row.type}</StyledTableCell>
-                            <StyledTableCell align="right">{row.expires}</StyledTableCell>
+                            <StyledTableCell align="right">{getTime(row.modified)}</StyledTableCell>
                             <StyledTableCell align="right">{row.status}</StyledTableCell>
                         </StyledTableRow>
                     ))}
                 </TableBody>
             </Table>
         </Paper>
+    );
+}
+export  function AlertDialog() {
+    const [open, setOpen] = React.useState(false);
+
+    function handleClickOpen() {
+        setOpen(true);
+    }
+
+    function handleClose() {
+        setOpen(false);
+    }
+
+    return (
+        <div>
+            <StyledTableCell className="icon_body"  align="left" ><a href='#' variant="outlined" color="primary"  onClick={handleClickOpen}> <i className="material-icons">delete</i></a></StyledTableCell>
+
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle style={{marginRight:400}} id="alert-dialog-title">{"Are You Sure?"}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                     Do Delete?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions className="dialog_a">
+                    <button  onClick={handleClose} >
+                        Disagree
+                    </button>
+                    <button href="#" onClick={handleClose}  >
+                        Agree
+                    </button>
+                </DialogActions>
+            </Dialog>
+        </div>
     );
 }

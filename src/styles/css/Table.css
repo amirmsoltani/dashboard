@@ -4,7 +4,41 @@ a
     color: #111111;
     line-height: inherit;
 }
-.icon_body :hover
+.head_div
+{
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-around;
+
+}
+.dialog_a button
+{
+    border: 5px;
+    padding: 10px;
+    outline: 0;
+    box-shadow: none;
+    background-color: lightgray;
+    color: white;
+
+}
+
+.dialog_a button:focus
+{
+    box-shadow: none;
+    outline: none!important;
+    background-color: lightgray;
+    color: white;
+
+}
+.dialog_a button:hover
+{
+    box-shadow: none;
+    outline: none!important;
+    background-color: white;
+    color: #111111;
+
+}
+.icon_body :hover, .dialog_a:hover
 {
 
     /*background-color:rgba(255,255,255,1);*/
@@ -24,11 +58,83 @@ a
 {
     color: green;
 }
-.draft
+.archived
 {
     color: yellow;
 }
-.block
+.faild
 {
     color: #fc0000;
+}
+.search
+{
+    display: flex;
+
+    border-bottom: #111111 1px solid;
+    margin:10px 0  20px    10px;
+    width: 70%;
+}
+.table_input_search
+{
+    font: inherit;
+    color: currentColor;
+    width: 70%;
+    border: 0;
+    height: 1.1875em;
+    margin: 0;
+    padding: 13px 0 7px;
+    min-width: 0;
+    background: none;
+    box-sizing: content-box;
+    -webkit-tap-highlight-color: transparent;
+}
+.table_input_search:focus
+{
+    box-shadow: none;
+    outline: none !important;
+}
+.table_btn_search
+{
+    color: #111111;
+    border: none;
+    padding: 7px;
+    font-size: 15px;
+    line-height: inherit;
+}
+.table_btn_search:focus
+{
+    box-shadow: none;
+    outline: none!important;
+}
+.table_btn_close
+{
+    color: #111111;
+    border: none;
+    padding: 7px;
+    font-size: 15px;
+    line-height: inherit;
+}
+.table_btn_close:focus
+{
+    color: lightgray;
+    box-shadow: none;
+    outline: none!important;
+}
+.table_btn_add
+{
+    padding: 0;
+    background-color: lightgray;
+    color: white;
+    border: none;
+    margin: 10px 10px 10px -50px;
+    font-size: 35px;
+    width: 10%;
+    height: 45px;
+    text-align: center;
+    /*line-height: inherit;*/
+}
+.table_btn_add:focus
+{
+    box-shadow: none;
+    outline: none!important;
 }
