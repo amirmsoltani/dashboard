@@ -5,7 +5,7 @@ import {ListColumn} from "../components/LictColumn";
 import '../styles/css/AddPost.css';
 import SettingList from '../components/SettingsList';
 import {MultiSelect,SingleSelect} from '../components/Selector';
-
+import {Controler} from '../components/MediaControl';
 export  default class AddPost extends Component{
 
     details = {};
@@ -53,6 +53,7 @@ export  default class AddPost extends Component{
                                        id="publish"
                                        placeholder="Enter publish year"/>
                     </div>
+                    <Controler/>
 
 
                 </Grid>
