@@ -11,7 +11,6 @@ export  default class Name extends Component
              .then(response=>{
                  let  posts = response.data;
                  this.setState({posts});
-
              })
              .catch(error=>{
                  console.log(error);
@@ -21,7 +20,7 @@ export  default class Name extends Component
         const {posts } = this.state;
         return(
            <div>
-                <MaterialTableDemo rows={posts}/>
+                <MaterialTableDemo rows={posts} />
            </div>
         );
     }

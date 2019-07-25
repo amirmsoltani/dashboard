@@ -1,21 +1,12 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import {Icon} from '@material-ui/core';
+
 import clx from 'clsx';
 import '../styles/css/Table.css';
 import moment from 'moment-jalaali';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 
+import {Table,TableBody,TableCell,TableHead,TableRow,Paper,Icon,DialogTitle,Dialog,DialogActions,DialogContent,Button,DialogContentText} from '@material-ui/core';
 
 
 const StyledTableCell = withStyles(theme => ({
@@ -82,7 +73,7 @@ export default function CustomizedTables(props) {
                                 <input className="table_input_search" placeholder="Search"/>
                                 <a className="table_btn_close"> <i className="material-icons">close</i></a>
                             </div>
-                            <button className="table_btn_add"> <i className="material-icons">add</i></button>
+                                <button  className="table_btn_add"> <Link component={Link} to="AddPost/" ><i className="material-icons">add</i></Link></button>
                             </div>
 
                     <TableRow>
@@ -102,7 +93,7 @@ export default function CustomizedTables(props) {
                                 {/*{row.name}*/}
                             {/*</StyledTableCell>*/}
                             <StyledTableCell >{row.title}</StyledTableCell>
-                            <StyledTableCell className="icon_body"  align="right" ><a href="#"> <i className="material-icons">edit</i></a></StyledTableCell>
+                            <StyledTableCell className="icon_body"  align="right" ><Link to={`AddPost/${row.id}`}> <i className="material-icons">edit</i></Link></StyledTableCell>
                             <AlertDialog/>
                             <StyledTableCell  ><Icon className={clx({
                                 "active":row.status===1,
